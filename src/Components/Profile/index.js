@@ -1,6 +1,10 @@
+// Dependencies
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import { Link } from "react-router-dom";
+
+// Styles
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
@@ -12,7 +16,9 @@ import Share from "@material-ui/icons/Share";
 import BorderBottom from "@material-ui/icons/BorderBottom";
 import Modal from '@material-ui/core/Modal';
 import Typography from '@material-ui/core/Typography';
-import qrGoolge from './qrcode.45596517.png'
+
+//Image
+import qrGoolge from './qrcode.45596517.png';
 
 const styles = theme => ({
   fab: {
@@ -131,7 +137,9 @@ class Profile extends React.Component {
               </Grid>
               <Grid item xs={4}>
                 <Button variant="fab" color={`primary`}>
-                  <Share />
+                  <Link to="/contacts">
+                    <Share />
+                  </Link>
                 </Button>
               </Grid>
               <Grid item xs={4}>

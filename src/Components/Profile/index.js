@@ -37,27 +37,10 @@ const styles = theme => ({
   }
 });
 
-const ranges = [
-  {
-    value: "m",
-    label: "Masculine"
-  },
-  {
-    value: "f",
-    label: "Femenine"
-  },
-  {
-    value: "u",
-    label: "Unspecified"
-  }
-];
-
 class Profile extends React.Component {
   state = {
     name: "Ben",
     last_name: "Orozco",
-    gender: "m",
-    birth_date: ""
   };
 
   render() {
@@ -93,28 +76,6 @@ class Profile extends React.Component {
                   label="Last Name"
                   className={classes.textField}
                   value={this.state.last_name}
-                  margin="normal"
-                />
-                <TextField
-                  select
-                  label="Gender"
-                  className={classNames(classes.margin, classes.textField)}
-                  value={this.state.gender}
-                >
-                  {ranges.map(option => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
-                <TextField
-                  id="birth-date"
-                  label="Birth Date"
-                  InputLabelProps={{
-                    shrink: true
-                  }}
-                  placeholder="DD/MM/YYY"
-                  fullWidth
                   margin="normal"
                 />
               </form>

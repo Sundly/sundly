@@ -77,7 +77,7 @@ const styles = theme => ({
     })
   },
   "content-left": {
-    marginLeft: -drawerWidth
+    marginLeft: -300
   },
   "content-right": {
     marginRight: -drawerWidth

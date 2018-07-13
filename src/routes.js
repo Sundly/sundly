@@ -6,12 +6,16 @@ import { Route, Switch } from 'react-router-dom'
 import App from './Components/App'; 
 import Profile from './Components/Profile';
 import Contacts from './Components/Contacts';
+import TimeLine from './Components/Timeline';
+import Summary from './Components/Summary';
 
 const AppRoutes = () =>
 <App> 
     <Switch> 
         <Route exact path ="/" component={Profile}/>
         <Route exact path ="/contacts" component={Contacts}/>
+        <Route exact path ="/timeline" component={TimeLine}/>
+        <Route exact path ="/summary" component={Summary}/>
     </Switch>
 </App>
 

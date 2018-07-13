@@ -14,13 +14,9 @@ import AddIcon from "@material-ui/icons/Add";
 import IconButton from "@material-ui/core/IconButton";
 import ShareIcon from "@material-ui/icons/Share";
 import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 
 const styles = theme => ({
-  root: {
-    width: "100%",
-    position: "relative",
-    minHeight: 200
-  },
   fab: {
     position: "absolute",
     bottom: theme.spacing.unit * 2,
@@ -74,6 +70,11 @@ class Contacts extends React.Component {
     return (
       <div className={classes.root}>
         <Grid container spacing={24}>
+        <Grid item xs={12}>
+            <Paper className={classes.paper}>
+              Timeline
+            </Paper>
+          </Grid>
           <Grid item xs={12}>
             <List>
               {this.state.contacts.map(contact => (

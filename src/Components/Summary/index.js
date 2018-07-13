@@ -13,12 +13,9 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import LocalHospital from "@material-ui/icons/LocalHospital";
 import Share from "@material-ui/icons/Share";
-import BorderBottom from "@material-ui/icons/BorderBottom";
+import AddIcon from "@material-ui/icons/Add";
 import Modal from '@material-ui/core/Modal';
 import Typography from '@material-ui/core/Typography';
-
-//Image
-import qrGoolge from './qrcode.45596517.png';
 
 const styles = theme => ({
   fab: {
@@ -54,38 +51,13 @@ const styles = theme => ({
   }
 });
 
-function rand() {
-  return Math.round(Math.random() * 20) - 10;
-}
 
-function getModalStyle() {
-  const top = 50 + rand();
-  const left = 50 + rand();
-
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(0%, 50%)`,
-    border: 'solid',
-    background: 'white'
-  };
-}
-
-
-class Profile extends React.Component {
+class TimeLine extends React.Component {
   state = {
     name: "Ben",
     last_name: "Orozco",
-    open: false,
   };
 
-  handleOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleClose = () => {
-    this.setState({ open: false });
-  };
 
   render() {
     const { classes } = this.props;
@@ -96,16 +68,12 @@ class Profile extends React.Component {
         <Grid container spacing={24}>
           <Grid item xs={12}>
             <Paper className={classes.paper}>
-              <Avatar
-                alt="Ben Orozco"
-                src="https://d1qb2nb5cznatu.cloudfront.net/users/2370959-original"
-                className={classNames(classes.avatar, classes.bigAvatar)}
-              />
-              <code>benoror.id</code>
+              Timeline
             </Paper>
           </Grid>
           <Grid item xs={12}>
             <Paper className={classes.paper}>
+              07/13/2018
               <form className={classes.container} noValidate autoComplete="off">
                 <TextField
                   disabled
@@ -123,39 +91,23 @@ class Profile extends React.Component {
                   value={this.state.last_name}
                   margin="normal"
                 />
+                <TextField
+                  id="full-width"
+                  label="Write Symptoms"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  placeholder="Symptoms"
+                  fullWidth
+                  margin="normal"
+                />
               </form>
+              <Button variant="fab" color={`primary`}>
+                <Link to="/">
+                  <AddIcon />
+                </Link>
+              </Button>
             </Paper>
-            <Grid container spacing={24} style={{ marginLeft: 20, marginTop: 10}}>
-              <Grid item xs={4}>
-                <Button variant="fab" color={`primary`}>
-                  <Link to="/summary">
-                    <LocalHospital />
-                  </Link>
-                </Button>
-              </Grid>
-              <Grid item xs={4}>
-                <Button variant="fab" color={`primary`}>
-                  <Link to="/contacts">
-                    <Share />
-                  </Link>
-                </Button>
-              </Grid>
-              <Grid item xs={4}>
-                <Button variant="fab" color={`primary`}>
-                  <BorderBottom onClick={this.handleOpen} />
-                  <Modal
-                    aria-labelledby="simple-modal-title"
-                    aria-describedby="simple-modal-description"
-                    open={this.state.open}
-                    onClose={this.handleClose}
-                  >
-                    <div style={getModalStyle()}>
-                      <img src={qrGoolge} alt="google"/>
-                    </div>
-                  </Modal>
-                </Button>
-              </Grid>
-            </Grid>
           </Grid>
         </Grid>
       </div>
@@ -163,8 +115,8 @@ class Profile extends React.Component {
   }
 }
 
-Profile.propTypes = {
+TimeLine.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Profile);
+export default withStyles(styles)(TimeLine);

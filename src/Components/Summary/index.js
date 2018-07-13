@@ -1,21 +1,16 @@
 // Dependencies
 import React from "react";
 import PropTypes from "prop-types";
-import classNames from "classnames";
 import { Link } from "react-router-dom";
 
 // Styles
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import Avatar from "@material-ui/core/Avatar";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import LocalHospital from "@material-ui/icons/LocalHospital";
-import Share from "@material-ui/icons/Share";
 import AddIcon from "@material-ui/icons/Add";
-import Modal from '@material-ui/core/Modal';
-import Typography from '@material-ui/core/Typography';
+
 
 const styles = theme => ({
   fab: {
@@ -61,7 +56,6 @@ class TimeLine extends React.Component {
 
   render() {
     const { classes } = this.props;
-    console.log(classes)
 
     return (
       <div className={classes.root} style={{marginTop: 60}}>

@@ -15,7 +15,6 @@ import LocalHospital from "@material-ui/icons/LocalHospital";
 import Share from "@material-ui/icons/Share";
 import BorderBottom from "@material-ui/icons/BorderBottom";
 import Modal from '@material-ui/core/Modal';
-import Typography from '@material-ui/core/Typography';
 
 //Image
 import qrGoolge from './qrcode.45596517.png';
@@ -89,7 +88,6 @@ class Profile extends React.Component {
 
   render() {
     const { classes } = this.props;
-    console.log(classes)
 
     return (
       <div className={classes.root} style={{marginTop: 60}}>

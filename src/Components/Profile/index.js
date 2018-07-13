@@ -6,9 +6,20 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Avatar from "@material-ui/core/Avatar";
 import TextField from "@material-ui/core/TextField";
-import MenuItem from "@material-ui/core/MenuItem";
+import Button from "@material-ui/core/Button";
+import LocalHospital from "@material-ui/icons/LocalHospital";
+import Share from "@material-ui/icons/Share";
+import BorderBottom from "@material-ui/icons/BorderBottom";
+import Modal from '@material-ui/core/Modal';
+import Typography from '@material-ui/core/Typography';
+import qrGoolge from './qrcode.45596517.png'
 
 const styles = theme => ({
+  fab: {
+    position: "absolute",
+    bottom: theme.spacing.unit * 2,
+    right: theme.spacing.unit * 2
+  },
   paper: {
     display: "flex",
     alignItems: "center",
@@ -37,17 +48,49 @@ const styles = theme => ({
   }
 });
 
+function rand() {
+  return Math.round(Math.random() * 20) - 10;
+}
+
+function getModalStyle() {
+  const top = 50 + rand();
+  const left = 50 + rand();
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(0%, 50%)`,
+    border: 'solid',
+    background: 'white'
+  };
+}
+
+
 class Profile extends React.Component {
   state = {
     name: "Ben",
     last_name: "Orozco",
+    open: false,
   };
+
+  handleOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  viewQR = () => {
+    console.log('hola')
+  }
 
   render() {
     const { classes } = this.props;
+    console.log(classes)
 
     return (
-      <div className={classes.root}>
+      <div className={classes.root} style={{marginTop: 60}}>
         <Grid container spacing={24}>
           <Grid item xs={12}>
             <Paper className={classes.paper}>
@@ -63,7 +106,7 @@ class Profile extends React.Component {
             <Paper className={classes.paper}>
               <form className={classes.container} noValidate autoComplete="off">
                 <TextField
-                  required
+                  disabled
                   id="name"
                   label="Name"
                   className={classes.textField}
@@ -71,7 +114,7 @@ class Profile extends React.Component {
                   margin="normal"
                 />
                 <TextField
-                  required
+                  disabled
                   id="last-name"
                   label="Last Name"
                   className={classes.textField}
@@ -80,6 +123,33 @@ class Profile extends React.Component {
                 />
               </form>
             </Paper>
+            <Grid container spacing={24} style={{ marginLeft: 20, marginTop: 10}}>
+              <Grid item xs={4}>
+                <Button variant="fab" color={`primary`}>
+                  <LocalHospital />
+                </Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Button variant="fab" color={`primary`}>
+                  <Share />
+                </Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Button variant="fab" color={`primary`}>
+                  <BorderBottom onClick={this.handleOpen} />
+                  <Modal
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                    open={this.state.open}
+                    onClose={this.handleClose}
+                  >
+                    <div style={getModalStyle()}>
+                      <img src={qrGoolge} alt="google"/>
+                    </div>
+                  </Modal>
+                </Button>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </div>

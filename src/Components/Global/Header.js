@@ -151,7 +151,7 @@ class Header extends Component {
             <TimelineIcon />
           </ListItemIcon>
           <Link to="/timeline">
-            <ListItemText primary="Timeline" />
+            <ListItemText primary="Historial" />
           </Link>
         </ListItem>
         <ListItem button>

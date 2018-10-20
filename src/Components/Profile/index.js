@@ -19,6 +19,8 @@ import Modal from '@material-ui/core/Modal';
 //Image
 import qrGoolge from './qrcode.45596517.png';
 
+const blockstack = require('blockstack');
+
 const styles = theme => ({
   fab: {
     position: "absolute",
@@ -70,13 +72,14 @@ function getModalStyle() {
   };
 }
 
-
 class Profile extends React.Component {
-  state = {
-    name: "Ben",
-    last_name: "Orozco",
-    open: false,
-  };
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      user: blockstack.loadUserData()
+    }
+  }
 
   handleOpen = () => {
     this.setState({ open: true });
@@ -95,11 +98,12 @@ class Profile extends React.Component {
           <Grid item xs={12}>
             <Paper className={classes.paper}>
               <Avatar
-                alt="Ben Orozco"
-                src="https://d1qb2nb5cznatu.cloudfront.net/users/2370959-original"
+                src={this.state.user.profile.image && this.state.user.profile.image[0].contentUrl}
                 className={classNames(classes.avatar, classes.bigAvatar)}
               />
-              <code>benoror.id</code>
+              <code>{this.state.user.username}</code>
+              <br />
+              <quote>{this.state.user.profile.description}</quote>
             </Paper>
           </Grid>
           <Grid item xs={12}>
@@ -108,17 +112,8 @@ class Profile extends React.Component {
                 <TextField
                   disabled
                   id="name"
-                  label="Name"
                   className={classes.textField}
-                  value={this.state.name}
-                  margin="normal"
-                />
-                <TextField
-                  disabled
-                  id="last-name"
-                  label="Last Name"
-                  className={classes.textField}
-                  value={this.state.last_name}
+                  value={this.state.user.profile.name}
                   margin="normal"
                 />
               </form>

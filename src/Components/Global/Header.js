@@ -219,7 +219,7 @@ class Header extends Component {
                 <div>
                   <Button aria-haspopup="true" color="inherit">
                     <Link to="/p/profile"> 
-                      Ben&nbsp;
+                      Profile&nbsp;
                       <AccountCircle />
                     </Link>
                   </Button>

@@ -1,7 +1,6 @@
 // Dependencies
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import App from './App';
 import {
   BrowserRouter as Router,
   Route,
@@ -13,12 +12,10 @@ import {
 // Styles
 import './index.css';
 
-//Routes
-// import AppRoutes from './routes'
+// Private App Routes
+import PrivateRoutes from './private-routes'
 
 import registerServiceWorker from './registerServiceWorker';
-
-// ReactDOM.render(<App />, document.getElementById('root'));
 
 const fakeAuth = {
   isAuthenticated: false,
@@ -31,8 +28,6 @@ const fakeAuth = {
     setTimeout(cb, 100) // fake async
   }
 }
-
-const Protected = () => <h3>Protected</h3>
 
 class Login extends React.Component {
   state = {
@@ -48,7 +43,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { from } = this.props.location.state || { from: { pathname: '/' } }
+    const { from } = this.props.location.state || { from: { pathname: '/p/profile' } }
     const { redirectToReferrer } = this.state
 
     if (redirectToReferrer === true) {
@@ -92,18 +87,12 @@ ReactDOM.render(
     <div>
       <AuthButton/>
       <ul>
-        <li><Link to="/protected">Protected Page</Link></li>
+        <li><Link to="/p">Protected Page</Link></li>
       </ul>
       <Route path="/login" component={Login}/>
-      <PrivateRoute path='/protected' component={Protected} />
+      <PrivateRoute path='/p' component={PrivateRoutes} />
     </div>
   </Router>,
   document.getElementById('root'));
-
-// ReactDOM.render(
-//   <BrowserRouter>
-//       <AppRoutes />
-//   </BrowserRouter>,
-//   document.getElementById('root'));
 
 registerServiceWorker();

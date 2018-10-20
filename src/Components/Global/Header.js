@@ -142,7 +142,7 @@ class Header extends Component {
           <ListItemIcon>
             <LocalHospitalIcon />
           </ListItemIcon>
-          <Link to="/">  
+          <Link to="/p/summary">  
             <ListItemText primary="Summary" />
           </Link>
         </ListItem>
@@ -150,7 +150,7 @@ class Header extends Component {
           <ListItemIcon>
             <TimelineIcon />
           </ListItemIcon>
-          <Link to="/timeline">
+          <Link to="/p/timeline">
             <ListItemText primary="Historial" />
           </Link>
         </ListItem>
@@ -158,7 +158,7 @@ class Header extends Component {
           <ListItemIcon>
             <ContactsIcon />
           </ListItemIcon>
-          <Link to="/Contacts">  
+          <Link to="/p/contacts">  
             <ListItemText primary="Contacts" />
           </Link> 
         </ListItem>
@@ -218,7 +218,7 @@ class Header extends Component {
               {auth && (
                 <div>
                   <Button aria-haspopup="true" color="inherit">
-                    <Link to="/"> 
+                    <Link to="/p/profile"> 
                       Ben&nbsp;
                       <AccountCircle />
                     </Link>

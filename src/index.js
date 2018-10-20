@@ -32,7 +32,6 @@ const fakeAuth = {
   }
 }
 
-const Public = () => <h3>Public</h3>
 const Protected = () => <h3>Protected</h3>
 
 class Login extends React.Component {
@@ -93,10 +92,8 @@ ReactDOM.render(
     <div>
       <AuthButton/>
       <ul>
-        <li><Link to="/public">Public Page</Link></li>
         <li><Link to="/protected">Protected Page</Link></li>
       </ul>
-      <Route path="/public" component={Public}/>
       <Route path="/login" component={Login}/>
       <PrivateRoute path='/protected' component={Protected} />
     </div>

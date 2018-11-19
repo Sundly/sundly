@@ -24,6 +24,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import LocalHospitalIcon from "@material-ui/icons/LocalHospital";
 import ContactsIcon from "@material-ui/icons/Contacts";
 import TimelineIcon from "@material-ui/icons/Timeline";
+import LogoutIcon from "@material-ui/icons/ExitToApp";
 
 const drawerWidth = 240;
 
@@ -142,7 +143,7 @@ class Header extends Component {
           <ListItemIcon>
             <LocalHospitalIcon />
           </ListItemIcon>
-          <Link to="/p/summary">  
+          <Link to="/summary">  
             <ListItemText primary="Summary" />
           </Link>
         </ListItem>
@@ -150,7 +151,7 @@ class Header extends Component {
           <ListItemIcon>
             <TimelineIcon />
           </ListItemIcon>
-          <Link to="/p/timeline">
+          <Link to="/timeline">
             <ListItemText primary="Historial" />
           </Link>
         </ListItem>
@@ -158,8 +159,16 @@ class Header extends Component {
           <ListItemIcon>
             <ContactsIcon />
           </ListItemIcon>
-          <Link to="/p/contacts">  
+          <Link to="/contacts">  
             <ListItemText primary="Contacts" />
+          </Link> 
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <LogoutIcon />
+          </ListItemIcon>
+          <Link to="/logout">
+            <ListItemText primary="Logout" />
           </Link> 
         </ListItem>
       </List>
@@ -218,7 +227,7 @@ class Header extends Component {
               {auth && (
                 <div>
                   <Button aria-haspopup="true" color="inherit">
-                    <Link to="/p/profile"> 
+                    <Link to="/"> 
                       Profile&nbsp;
                       <AccountCircle />
                     </Link>

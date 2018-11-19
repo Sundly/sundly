@@ -3,9 +3,7 @@ import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Link,
-  Redirect,
-  withRouter
+  Redirect
 } from 'react-router-dom';
 // Styles
 import './app.css';
@@ -19,7 +17,7 @@ const checkSignedInStatus = () => {
   if (blockstack.isUserSignedIn()) {
     return true;
   } else if (blockstack.isSignInPending()) {
-    blockstack.handlePendingSignIn().then(function(userData) {
+    blockstack.handlePendingSignIn().then(function(_userData) {
       window.location = window.location.origin
     })
     return false;
@@ -32,6 +30,7 @@ const blockstackAuth = {
     blockstack.redirectToSignIn()
   },
   signout(cb) {
+    cb();
     blockstack.signUserOut(window.location.href)
       .then(() => { this.isAuthenticated = false })
   }
@@ -51,7 +50,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { from } = this.props.location.state || { from: { pathname: '/p/profile' } }
+    const { from } = this.props.location.state || { from: { pathname: '/' } }
     const { redirectToReferrer } = this.state
 
     if (redirectToReferrer === true) {
@@ -68,46 +67,36 @@ class Login extends React.Component {
 }
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={(props) => (
-    blockstackAuth.isAuthenticated === true
-      ? <Component {...props} />
-      : <Redirect to={{
-          pathname: '/login',
-          state: { from: props.location }
-        }} />
-  )} />
+  <Route {...rest} render={(props) => {
+    return (
+      blockstackAuth.isAuthenticated === true
+        ? <Component {...props} />
+        : <Redirect to={{pathname: '/login'}} />
+    )
+  }} />
 )
 
-const AuthButton = withRouter(({ history }) => (
-  blockstackAuth.isAuthenticated ? (
-    <p>
-      Welcome! <button onClick={() => {
-        blockstackAuth.signout(() => history.push('/'))
-      }}>Sign out</button>
-    </p>
-  ) : (
-    <p>You are not logged in.</p>
-  )
-))
+class Logout extends React.Component {
+  componentWillMount() {
+    const { history } = this.props;
+    blockstackAuth.signout(() => history.push('/login'))
+  }
+
+  render() {
+    return '';
+  }
+}
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Blockstack Create React App</h1>
-        </header>
-        <Router>
-          <div>
-            <AuthButton/>
-            <ul>
-              <li><Link to="/p">Protected Page</Link></li>
-            </ul>
-            <Route path="/login" component={Login}/>
-            <PrivateRoute path='/p' component={PrivateRoutes} />
-          </div>
-        </Router>
-      </div>
+      <Router>
+        <div>
+          <Route path="/login" component={Login}/>
+          <Route path="/logout" component={Logout}/>
+          <PrivateRoute path='/' component={PrivateRoutes} />
+        </div>
+      </Router>
     )
   }
 }

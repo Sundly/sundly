@@ -12,10 +12,10 @@ import Summary from './Components/Summary';
 const PrivateRoutes = () =>
 <App>
     <Switch>
-        <Route exact path ="/p/profile" component={Profile}/>
-        <Route exact path ="/p/contacts" component={Contacts}/>
-        <Route exact path ="/p/timeline" component={TimeLine}/>
-        <Route exact path ="/p/summary" component={Summary}/>
+        <Route exact path ="/" component={Profile}/>
+        <Route exact path ="/contacts" component={Contacts}/>
+        <Route exact path ="/timeline" component={TimeLine}/>
+        <Route exact path ="/summary" component={Summary}/>
     </Switch>
 </App>
 

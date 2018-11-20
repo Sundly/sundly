@@ -2,6 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import registerServiceWorker from './registerServiceWorker';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 // Blockstack app
 import App from './app'
@@ -20,9 +21,12 @@ const theme = createMuiTheme({
 });
 
 ReactDOM.render(
-  <MuiThemeProvider theme={theme}>
-    <App />
-  </MuiThemeProvider>,
+  <React.Fragment>
+    <CssBaseline />
+    <MuiThemeProvider theme={theme}>
+      <App />
+    </MuiThemeProvider>
+  </React.Fragment>,
   document.getElementById('root'));
 
 registerServiceWorker();

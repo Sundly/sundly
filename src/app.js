@@ -1,16 +1,13 @@
-// Dependencies
 import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Route,
   Redirect
 } from 'react-router-dom';
-// Styles
-import './app.css';
-// Private App Routes
 import PrivateRoutes from './private-routes'
+import Login from './Components/Login'
+import './app.css';
 
-// Blockstack
 const blockstack = require('blockstack');
 
 const checkSignedInStatus = () => {
@@ -36,12 +33,17 @@ const blockstackAuth = {
   }
 }
 
-class Login extends React.Component {
-  state = {
-    redirectToReferrer: false
+class LoginContainer extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      redirectToReferrer: false
+    }
   }
 
-  login = () => {
+  login(e) {
+    e.preventDefault();
+
     blockstackAuth.authenticate(() => {
       this.setState(() => ({
         redirectToReferrer: true
@@ -57,12 +59,7 @@ class Login extends React.Component {
       return <Redirect to={from} />
     }
 
-    return (
-      <div>
-        <p>You must log in to view the page</p>
-        <button onClick={this.login}>Log in</button>
-      </div>
-    )
+    return React.createElement(Login, { login: this.login });
   }
 }
 
@@ -92,7 +89,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Route path="/login" component={Login}/>
+          <Route path="/login" component={LoginContainer}/>
           <Route path="/logout" component={Logout}/>
           <PrivateRoute path='/' component={PrivateRoutes} />
         </div>

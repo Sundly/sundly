@@ -114,7 +114,6 @@ const styles = theme => ({
 
 class Header extends Component {
   state = {
-    auth: true,
     open: false,
     anchor: "left"
   };
@@ -135,15 +134,23 @@ class Header extends Component {
 
   render() {
     const { classes, theme } = this.props;
-    const { auth, open } = this.state;
+    const { open } = this.state;
 
     const mainList = (
       <List component="nav">
         <ListItem button>
           <ListItemIcon>
+            <AccountCircle />
+          </ListItemIcon>
+          <Link to="/">
+            <ListItemText primary="Profile" />
+          </Link>
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
             <LocalHospitalIcon />
           </ListItemIcon>
-          <Link to="/summary">  
+          <Link to="/summary">
             <ListItemText primary="Summary" />
           </Link>
         </ListItem>
@@ -159,9 +166,9 @@ class Header extends Component {
           <ListItemIcon>
             <ContactsIcon />
           </ListItemIcon>
-          <Link to="/contacts">  
+          <Link to="/contacts">
             <ListItemText primary="Contacts" />
-          </Link> 
+          </Link>
         </ListItem>
         <ListItem button>
           <ListItemIcon>
@@ -169,7 +176,7 @@ class Header extends Component {
           </ListItemIcon>
           <Link to="/logout">
             <ListItemText primary="Logout" />
-          </Link> 
+          </Link>
         </ListItem>
       </List>
     );
@@ -207,7 +214,7 @@ class Header extends Component {
               [classes[`appBarShift-left`]]: open
             })}
           >
-            <Toolbar disableGutters={!open}>
+            <Toolbar>
               <IconButton
                 className={classNames(classes.menuButton, open && classes.hide)}
                 onClick={this.handleDrawerOpen}
@@ -224,16 +231,11 @@ class Header extends Component {
               >
                 Sundly
               </Typography>
-              {auth && (
-                <div>
-                  <Button aria-haspopup="true" color="inherit">
-                    <Link to="/"> 
-                      Profile&nbsp;
-                      <AccountCircle />
-                    </Link>
-                  </Button>
-                </div>
-              )}
+              <Button aria-haspopup="true" color="inherit">
+                <Link to="/">
+                  <AccountCircle />
+                </Link>
+              </Button>
             </Toolbar>
           </AppBar>
           {drawer}

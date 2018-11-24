@@ -21,7 +21,6 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import LocalHospitalIcon from "@material-ui/icons/LocalHospital";
 import ContactsIcon from "@material-ui/icons/Contacts";
 import TimelineIcon from "@material-ui/icons/Timeline";
 import LogoutIcon from "@material-ui/icons/ExitToApp";
@@ -148,18 +147,10 @@ class Header extends Component {
         </ListItem>
         <ListItem button>
           <ListItemIcon>
-            <LocalHospitalIcon />
-          </ListItemIcon>
-          <Link to="/summary">
-            <ListItemText primary="Summary" />
-          </Link>
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
             <TimelineIcon />
           </ListItemIcon>
           <Link to="/timeline">
-            <ListItemText primary="Historial" />
+            <ListItemText primary="Timeline" />
           </Link>
         </ListItem>
         <ListItem button>

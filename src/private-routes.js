@@ -7,7 +7,6 @@ import App from './Components/App';
 import Profile from './Components/Profile';
 import Contacts from './Components/Contacts';
 import TimeLine from './Components/Timeline';
-import Summary from './Components/Summary';
 
 const PrivateRoutes = () =>
 <App>
@@ -15,7 +14,6 @@ const PrivateRoutes = () =>
         <Route exact path ="/" component={Profile}/>
         <Route exact path ="/contacts" component={Contacts}/>
         <Route exact path ="/timeline" component={TimeLine}/>
-        <Route exact path ="/summary" component={Summary}/>
     </Switch>
 </App>
 

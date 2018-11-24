@@ -11,7 +11,7 @@ import Paper from "@material-ui/core/Paper";
 import Avatar from "@material-ui/core/Avatar";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import LocalHospital from "@material-ui/icons/LocalHospital";
+import TimelineIcon from "@material-ui/icons/Timeline";
 import Share from "@material-ui/icons/Share";
 import BorderBottom from "@material-ui/icons/BorderBottom";
 import Modal from '@material-ui/core/Modal';
@@ -121,8 +121,8 @@ class Profile extends React.Component {
             <Grid container spacing={24} style={{ marginLeft: 20, marginTop: 10}}>
               <Grid item xs={4}>
                 <Button variant="fab" color={`primary`}>
-                  <Link to="/summary">
-                    <LocalHospital />
+                  <Link to="/timeline">
+                    <TimelineIcon />
                   </Link>
                 </Button>
               </Grid>

@@ -1,12 +1,15 @@
 // Dependencies
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 // Styles
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import AddIcon from "@material-ui/icons/Add";
 
 const styles = theme => ({
   fab: {
@@ -58,7 +61,7 @@ class TimeLine extends React.Component {
         <Grid container spacing={24}>
           <Grid item xs={12}>
             <Paper className={classes.paper}>
-              Historial
+              Timeline
             </Paper>
           </Grid>
           <Grid item xs={12}>
@@ -82,7 +85,6 @@ class TimeLine extends React.Component {
                   margin="normal"
                 />
                 <TextField
-                  disabled
                   id="full-width"
                   label="Write Symptoms"
                   InputLabelProps={{
@@ -92,9 +94,13 @@ class TimeLine extends React.Component {
                   fullWidth
                   multiline
                   margin="normal"
-                  value="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur facilis in, porro eos omnis possimus ad laboriosam dolores enim, ab, culpa commodi illo sit. Ex eum, ad rerum? Quisquam, rerum!"
                 />
               </form>
+              <Button variant="fab" color={`primary`}>
+                <Link to="/">
+                  <AddIcon />
+                </Link>
+              </Button>
             </Paper>
           </Grid>
         </Grid>

@@ -139,7 +139,7 @@ class Header extends Component {
 
     const mainList = (
       <List component="nav">
-        <ListItem button>
+        <ListItem >
           <ListItemIcon>
             <LocalHospitalIcon />
           </ListItemIcon>
@@ -147,7 +147,7 @@ class Header extends Component {
             <ListItemText primary="Summary" />
           </Link>
         </ListItem>
-        <ListItem button>
+        <ListItem >
           <ListItemIcon>
             <TimelineIcon />
           </ListItemIcon>
@@ -155,7 +155,7 @@ class Header extends Component {
             <ListItemText primary="Historial" />
           </Link>
         </ListItem>
-        <ListItem button>
+        <ListItem >
           <ListItemIcon>
             <ContactsIcon />
           </ListItemIcon>
@@ -163,7 +163,7 @@ class Header extends Component {
             <ListItemText primary="Contacts" />
           </Link> 
         </ListItem>
-        <ListItem button>
+        <ListItem >
           <ListItemIcon>
             <LogoutIcon />
           </ListItemIcon>

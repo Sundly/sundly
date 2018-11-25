@@ -16,6 +16,9 @@ import Share from "@material-ui/icons/Share";
 import BorderBottom from "@material-ui/icons/BorderBottom";
 import Modal from '@material-ui/core/Modal';
 import Typography from '@material-ui/core/Typography';
+import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 
@@ -27,6 +30,10 @@ const blockstack = require('blockstack');
 const STORAGE_FILE = 'profile.json'
 
 const styles = theme => ({
+  form: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
   fab: {
     position: "absolute",
     bottom: theme.spacing.unit * 2,
@@ -55,11 +62,10 @@ const styles = theme => ({
   margin: {
     margin: theme.spacing.unit
   },
-  textField: {
-    flexBasis: 200,
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit * 2,
-  }
+  formControl: {
+    margin: theme.spacing.unit,
+    minWidth: 120,
+  },
 });
 
 function rand() {
@@ -139,110 +145,111 @@ class Profile extends React.Component {
     const { classes } = this.props;
 
     return (
-      <div className={classes.root} style={{marginTop: 60}}>
-        <Grid container spacing={24}>
-          <Grid item xs={12}>
-            <Paper className={classes.paper}>
-              <Avatar
-                src={this.state.user.profile.image && this.state.user.profile.image[0].contentUrl}
-                className={classNames(classes.avatar, classes.bigAvatar)}
-              />
-              <code>{this.state.user.username}</code>
-              <br />
-              <Typography variant="caption" gutterBottom>
-                {this.state.user.profile.description}
-              </Typography>
-            </Paper>
-          </Grid>
-          <Grid item xs={12}>
-            <Paper className={classes.paper}>
-              <Typography variant="title" gutterBottom>
-                Clinical Profile:
-              </Typography>
-              <form className={classes.container} noValidate autoComplete="off">
+      <Grid container spacing={24} style={{marginTop: 60}}>
+        <Grid item xs={12}>
+          <Paper className={classes.paper}>
+            <Avatar
+              src={this.state.user.profile.image && this.state.user.profile.image[0].contentUrl}
+              className={classNames(classes.avatar, classes.bigAvatar)}
+            />
+            <code>{this.state.user.username}</code>
+            <br />
+            <Typography variant="caption" gutterBottom>
+              {this.state.user.profile.description}
+            </Typography>
+          </Paper>
+        </Grid>
+        <Grid item xs={12}>
+          <Paper className={classes.paper}>
+            <Typography variant="title" gutterBottom>
+              Clinical Profile:
+            </Typography>
+            <form className={classes.form} noValidate autoComplete="off">
+              <FormControl className={classes.formControl}>
+                <InputLabel shrink htmlFor="firstName">First Name</InputLabel>
                 <TextField
                   required
                   id="firstName"
                   name="firstName"
-                  label="First Name"
                   autoComplete="fname"
-                  className={classes.textField}
                   value={this.state.sundlyProfile.firstName}
                   onChange={this.handleChange}
                   margin="normal"
                 />
+              </FormControl>
+              <FormControl className={classes.formControl}>
+                <InputLabel shrink htmlFor="lastName">Last Name</InputLabel>
                 <TextField
                   required
                   id="lastName"
                   name="lastName"
-                  label="Last Name"
                   autoComplete="lname"
-                  className={classes.textField}
                   value={this.state.sundlyProfile.lastName}
                   onChange={this.handleChange}
                   margin="normal"
                 />
+              </FormControl>
+              <FormControl className={classes.formControl}>
+                <InputLabel shrink htmlFor="sex">
+                  Biological Sex
+                </InputLabel>
                 <Select
                   value={this.state.sundlyProfile.sex}
                   onChange={this.handleChange}
-                  label="Biological Sex"
-                  inputProps={{
-                    name: 'sex',
-                    id: 'sex',
-                  }}
-                  className={classes.textField}
+                  input={<Input name="sex" id="sex" />}
                 >
                   <MenuItem value={'m'}>Male</MenuItem>
                   <MenuItem value={'f'}>Female</MenuItem>
                 </Select>
+              </FormControl>
+              <FormControl className={classes.formControl}>
+                <InputLabel shrink htmlFor="dob">Date of Birth</InputLabel>
                 <TextField
                   required
                   type="date"
                   id="dob"
                   name="dob"
-                  label="Date of Birth"
                   autoComplete="dob"
-                  className={classes.textField}
                   value={this.state.sundlyProfile.dob}
                   onChange={this.handleChange}
                   margin="normal"
                 />
-              </form>
-            </Paper>
-            <Grid container spacing={24} style={{ marginLeft: 20, marginTop: 10}}>
-              <Grid item xs={4}>
-                <Button variant="fab" color={`primary`}>
-                  <Link to="/timeline">
-                    <TimelineIcon />
-                  </Link>
-                </Button>
-              </Grid>
-              <Grid item xs={4}>
-                <Button variant="fab" color={`primary`}>
-                  <Link to="/contacts">
-                    <Share />
-                  </Link>
-                </Button>
-              </Grid>
-              <Grid item xs={4}>
-                <Button variant="fab" color={`primary`}>
-                  <BorderBottom onClick={this.handleOpen} />
-                  <Modal
-                    aria-labelledby="simple-modal-title"
-                    aria-describedby="simple-modal-description"
-                    open={this.state.open}
-                    onClose={this.handleClose}
-                  >
-                    <div style={getModalStyle()}>
-                      <img src={qrGoolge} alt="google"/>
-                    </div>
-                  </Modal>
-                </Button>
-              </Grid>
+              </FormControl>
+            </form>
+          </Paper>
+          <Grid container spacing={24} style={{ marginLeft: 20, marginTop: 10}}>
+            <Grid item xs={4}>
+              <Button variant="fab" color={`primary`}>
+                <Link to="/timeline">
+                  <TimelineIcon />
+                </Link>
+              </Button>
+            </Grid>
+            <Grid item xs={4}>
+              <Button variant="fab" color={`primary`}>
+                <Link to="/contacts">
+                  <Share />
+                </Link>
+              </Button>
+            </Grid>
+            <Grid item xs={4}>
+              <Button variant="fab" color={`primary`}>
+                <BorderBottom onClick={this.handleOpen} />
+                <Modal
+                  aria-labelledby="simple-modal-title"
+                  aria-describedby="simple-modal-description"
+                  open={this.state.open}
+                  onClose={this.handleClose}
+                >
+                  <div style={getModalStyle()}>
+                    <img src={qrGoolge} alt="google"/>
+                  </div>
+                </Modal>
+              </Button>
             </Grid>
           </Grid>
         </Grid>
-      </div>
+      </Grid>
     );
   }
 }

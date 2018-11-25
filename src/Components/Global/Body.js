@@ -8,9 +8,9 @@ class Body extends Component {
   static propTypes = {
     content: Proptypes.object.isRequired,//libreria.tipodeObjeto.EsRequeridoOÑo
   }
-  
+
   render() {
-    const {content} =this.props    
+    const {content} =this.props
     return (
         <div>
           {content}

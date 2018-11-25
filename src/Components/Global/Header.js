@@ -227,7 +227,7 @@ class Header extends Component {
               {auth && (
                 <div>
                   <Button aria-haspopup="true" color="inherit">
-                    <Link to="/"> 
+                    <Link to="/">
                       Profile&nbsp;
                       <AccountCircle />
                     </Link>

@@ -97,6 +97,13 @@ class Profile extends React.Component {
         <Grid container spacing={24}>
           <Grid item xs={12}>
             <Paper className={classes.paper}>
+              <Avatar
+                src={this.state.user.profile.image && this.state.user.profile.image[0].contentUrl}
+                className={classNames(classes.avatar, classes.bigAvatar)}
+              />
+              <code>{this.state.user.username}</code>
+              <br />
+              <quote>{this.state.user.profile.description}</quote>
             </Paper>
           </Grid>
           <Grid item xs={12}>
@@ -106,6 +113,7 @@ class Profile extends React.Component {
                   disabled
                   id="name"
                   className={classes.textField}
+                  value={this.state.user.profile.name}
                   margin="normal"
                 />
               </form>

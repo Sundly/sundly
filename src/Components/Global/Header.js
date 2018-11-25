@@ -196,42 +196,40 @@ class Header extends Component {
     );
 
     return (
-      <div>
-        <div>
-          <AppBar
-            position="static"
-            className={classNames(classes.appBar, {
-              [classes.appBarShift]: open,
-              [classes[`appBarShift-left`]]: open
-            })}
-          >
-            <Toolbar>
-              <IconButton
-                className={classNames(classes.menuButton, open && classes.hide)}
-                onClick={this.handleDrawerOpen}
-                color="inherit"
-                aria-label="Menu"
-              >
-                <MenuIcon />
-              </IconButton>
-              <Typography
-                variant="title"
-                color="inherit"
-                className={classes.flex}
-                noWrap
-              >
-                Sundly
-              </Typography>
-              <Button aria-haspopup="true" color="inherit">
-                <Link to="/">
-                  <AccountCircle />
-                </Link>
-              </Button>
-            </Toolbar>
-          </AppBar>
-          {drawer}
-        </div>
-      </div>
+      <React.Fragment>
+        <AppBar
+          position="static"
+          className={classNames(classes.appBar, {
+            [classes.appBarShift]: open,
+            [classes[`appBarShift-left`]]: open
+          })}
+        >
+          <Toolbar>
+            <IconButton
+              className={classNames(classes.menuButton, open && classes.hide)}
+              onClick={this.handleDrawerOpen}
+              color="inherit"
+              aria-label="Menu"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              variant="title"
+              color="inherit"
+              className={classes.flex}
+              noWrap
+            >
+              Sundly
+            </Typography>
+            <Button aria-haspopup="true" color="inherit">
+              <Link to="/">
+                <AccountCircle />
+              </Link>
+            </Button>
+          </Toolbar>
+        </AppBar>
+        {drawer}
+      </React.Fragment>
     )
   }
 }

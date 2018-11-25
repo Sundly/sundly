@@ -16,7 +16,6 @@ import Share from "@material-ui/icons/Share";
 import BorderBottom from "@material-ui/icons/BorderBottom";
 import Modal from '@material-ui/core/Modal';
 import Typography from '@material-ui/core/Typography';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 
@@ -90,11 +89,27 @@ class Profile extends React.Component {
         firstName: '',
         lastName: '',
         sex: '',
+        dob: '',
       },
       open: false,
     }
 
     this.handleChange = this.handleChange.bind(this)
+  }
+
+  fetchProfile() {
+    blockstack.getFile(STORAGE_FILE).then((profileText) => {
+      const sundlyProfile = JSON.parse(profileText)
+      if(!!sundlyProfile && !!sundlyProfile.firstName) {
+        this.setState({ sundlyProfile })
+      }
+    })
+  }
+
+  saveProfile() {
+    const { sundlyProfile } = this.state
+
+    return blockstack.putFile(STORAGE_FILE, JSON.stringify(sundlyProfile))
   }
 
   handleOpen() {
@@ -106,40 +121,18 @@ class Profile extends React.Component {
   };
 
   handleChange(event) {
-    const target = event.target;
+    const target = event.target
 
-    this.setState({
+    this.setState(prev => ({
       sundlyProfile: {
+        ...prev.sundlyProfile,
         [target.name]: target.value,
       }
-    });
-  };
-
-  fetchProfile() {
-    blockstack.getFile(STORAGE_FILE).then((profileText) => {
-      const sundlyProfile = JSON.parse(profileText) || {}
-      this.setState({ sundlyProfile })
-    })
-  }
-
-  inferDefaultName() {
-    const bsNameTokens = this.state.user.profile.name
-    const placeholderName = bsNameTokens.split(' ')[0]
-    const placeholderLast = bsNameTokens.substr(bsNameTokens.indexOf(' ' )+1)
-    this.setState({
-      sundlyProfile: {
-        firstName: placeholderName,
-        lastName: placeholderLast,
-      }
-    })
+    }), () => this.saveProfile())
   }
 
   componentDidMount() {
     this.fetchProfile()
-
-    if(!this.state.sundlyProfile.name) {
-      this.inferDefaultName()
-    }
   }
 
   render() {
@@ -167,32 +160,32 @@ class Profile extends React.Component {
                 Clinical Profile:
               </Typography>
               <form className={classes.container} noValidate autoComplete="off">
-                <InputLabel htmlFor="firstName">First Name</InputLabel>
                 <TextField
                   required
                   id="firstName"
                   name="firstName"
+                  label="First Name"
                   autoComplete="fname"
                   className={classes.textField}
                   value={this.state.sundlyProfile.firstName}
                   onChange={this.handleChange}
                   margin="normal"
                 />
-                <InputLabel htmlFor="lastName">Last Name</InputLabel>
                 <TextField
                   required
                   id="lastName"
                   name="lastName"
+                  label="Last Name"
                   autoComplete="lname"
                   className={classes.textField}
                   value={this.state.sundlyProfile.lastName}
                   onChange={this.handleChange}
                   margin="normal"
                 />
-                <InputLabel htmlFor="sex">Biological Sex</InputLabel>
                 <Select
                   value={this.state.sundlyProfile.sex}
                   onChange={this.handleChange}
+                  label="Biological Sex"
                   inputProps={{
                     name: 'sex',
                     id: 'sex',
@@ -202,12 +195,12 @@ class Profile extends React.Component {
                   <MenuItem value={'m'}>Male</MenuItem>
                   <MenuItem value={'f'}>Female</MenuItem>
                 </Select>
-                <InputLabel htmlFor="dob">Date of Birth</InputLabel>
                 <TextField
                   required
                   type="date"
                   id="dob"
                   name="dob"
+                  label="Date of Birth"
                   autoComplete="dob"
                   className={classes.textField}
                   value={this.state.sundlyProfile.dob}

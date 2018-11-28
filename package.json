@@ -5,6 +5,7 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
+    "now-build": "react-app-rewired build && mv build dist",
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-app-rewired eject"
   },

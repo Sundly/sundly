@@ -2,15 +2,12 @@
   "name": "sundly",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://app.sundly.co",
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "test": "react-app-rewired test --env=jsdom",
-    "eject": "react-app-rewired eject",
     "now-build": "react-app-rewired build && mv build dist",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "test": "react-app-rewired test --env=jsdom",
+    "eject": "react-app-rewired eject"
   },
   "devDependencies": {
     "express": "^4.15.2",
@@ -21,7 +18,6 @@
     "@material-ui/core": "^1.3.1",
     "@material-ui/icons": "^1.1.0",
     "blockstack": "latest",
-    "gh-pages": "^2.0.1",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "react-router-dom": "^4.3.1",

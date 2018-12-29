@@ -8,6 +8,7 @@ import { withStyles } from "@material-ui/core/styles";
 import classNames from 'classnames';
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import { Formik, Field, FieldArray, Form } from 'formik';
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -65,16 +66,14 @@ class TimeLine extends React.Component {
       sundlyTimeline: [],
     }
 
-    this.handleChange = this.handleChange.bind(this)
+    this.addEvent = this.addEvent.bind(this)
   }
 
-  handleChange(event) {
-    const target = event.target
-
-    this.setState(prev => ({
-      ...prev,
-      [target.name]: target.value,
-    }))
+  addEvent(values, actions) {
+    setTimeout(() => {
+      alert(JSON.stringify(values, null, 2));
+      actions.setSubmitting(false);
+    }, 500);
   }
 
   render() {
@@ -90,93 +89,114 @@ class TimeLine extends React.Component {
           </Grid>
           <Grid item xs={12}>
             <Paper className={classes.paper}>
-              <form className={classes.container} noValidate autoComplete="off">
-                <TextField
-                  id="datetime-local"
-                  className={classNames(classes.margin, classes.textField)}
-                  label="datetime"
-                  type="datetime-local"
-                  defaultValue={(new Date(Date.now())).toISOString()}
-                  InputLabelProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <WeightIcon />
-                      </InputAdornment>
-                    )
-                  }}
-                />
-                <br/>
-                <TextField
-                  id="weight"
-                  className={classNames(classes.margin, classes.textField)}
-                  variant="outlined"
-                  label="Weight"
-                  value={this.state.weight}
-                  onChange={this.handleChange}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <WeightIcon />
-                      </InputAdornment>
-                    ),
-                    endAdornment: <InputAdornment position="end">Kg</InputAdornment>,
-                  }}
-                />
-                <br/>
-                <TextField
-                  id="height"
-                  className={classNames(classes.margin, classes.textField)}
-                  variant="outlined"
-                  label="Height"
-                  value={this.state.height}
-                  onChange={this.handleChange}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <HeightIcon />
-                      </InputAdornment>
-                    ),
-                    endAdornment: <InputAdornment position="end">Mts</InputAdornment>,
-                  }}
-                />
-                <br/>
-                <TextField
-                  id="temperature"
-                  className={classNames(classes.margin, classes.textField)}
-                  variant="outlined"
-                  label="Temperature"
-                  value={this.state.temperature}
-                  onChange={this.handleChange}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <TempIcon />
-                      </InputAdornment>
-                    ),
-                    endAdornment: <InputAdornment position="end">C</InputAdornment>,
-                  }}
-                />
-                <br/>
-                <TextField
-                  id="heart_rate"
-                  className={classNames(classes.margin, classes.textField)}
-                  variant="outlined"
-                  label="Heart Rate"
-                  value={this.state.heart_rate}
-                  onChange={this.handleChange}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <HeartIcon />
-                      </InputAdornment>
-                    ),
-                    endAdornment: <InputAdornment position="end">BPM</InputAdornment>,
-                  }}
-                />
-              </form>
-              <Button variant="fab" color={`primary`}>
-                <AddIcon />
-              </Button>
+              <Formik
+                initialValues={{
+                  datetime: (new Date(Date.now())).toISOString()
+                }}
+                onSubmit={this.addEvent}
+              >
+                  {({ isSubmitting }) => (
+                    <Form>
+                      <Field name="datetime" >
+                        {({ field /* _form */ }) => (
+                          <TextField
+                            {...field}
+                            className={classNames(classes.margin, classes.textField)}
+                            label="datetime"
+                            type="datetime-local"
+                            InputLabelProps={{
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  <WeightIcon />
+                                </InputAdornment>
+                              )
+                            }}
+                          />
+                        )}
+                      </Field>
+                      <br />
+                      <Field name="weight" >
+                        {({ field /* _form */ }) => (
+                          <TextField
+                            {...field}
+                            className={classNames(classes.margin, classes.textField)}
+                            variant="outlined"
+                            label="Weight"
+                            InputProps={{
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  <WeightIcon />
+                                </InputAdornment>
+                              ),
+                              endAdornment: <InputAdornment position="end">Kg</InputAdornment>,
+                            }}
+                          />
+                        )}
+                      </Field>
+                      <br />
+                      <Field name="height" >
+                        {({ field /* _form */ }) => (
+                          <TextField
+                            {...field}
+                            className={classNames(classes.margin, classes.textField)}
+                            variant="outlined"
+                            label="Height"
+                            InputProps={{
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  <HeightIcon />
+                                </InputAdornment>
+                              ),
+                              endAdornment: <InputAdornment position="end">Mts</InputAdornment>,
+                            }}
+                          />
+                        )}
+                      </Field>
+                      <br />
+                      <Field name="temperature" >
+                        {({ field /* _form */ }) => (
+                          <TextField
+                            {...field}
+                            className={classNames(classes.margin, classes.textField)}
+                            variant="outlined"
+                            label="Temperature"
+                            InputProps={{
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  <TempIcon />
+                                </InputAdornment>
+                              ),
+                              endAdornment: <InputAdornment position="end">C</InputAdornment>,
+                            }}
+                          />
+                        )}
+                      </Field>
+                      <br />
+                      <Field name="heart_rate" >
+                        {({ field /* _form */ }) => (
+                          <TextField
+                            {...field}
+                            className={classNames(classes.margin, classes.textField)}
+                            variant="outlined"
+                            label="Heart Rate"
+                            InputProps={{
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  <HeartIcon />
+                                </InputAdornment>
+                              ),
+                              endAdornment: <InputAdornment position="end">BPM</InputAdornment>,
+                            }}
+                          />
+                        )}
+                      </Field>
+                      <br />
+                      <Button type="submit" disabled={isSubmitting} variant="fab" color={`primary`}>
+                        <AddIcon />
+                      </Button>
+                    </Form>
+                  )}
+              </Formik>
             </Paper>
           </Grid>
         </Grid>

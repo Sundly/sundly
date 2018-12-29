@@ -12,6 +12,10 @@ In the past many have approached this problem from a centralized point of view. 
 
 Today's technologies allow to envision a future where a decentralized network of personal health records is possible, in a private & secure way, where the data is owned by the user himself.
 
+## Public Roadmap
+
+https://trello.com/b/vH8XPCVb/sundly
+
 ## References / Ideas
 
 https://twitter.com/benoror/status/991711945861488640?s=19

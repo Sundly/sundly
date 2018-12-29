@@ -20,7 +20,7 @@ import TempIcon from "@material-ui/icons/Whatshot";
 
 const blockstack = require('blockstack');
 
-const STORAGE_FILE = 'profile.json'
+const STORAGE_FILE = 'timeline.json'
 
 const styles = theme => ({
   fab: {
@@ -69,11 +69,33 @@ class TimeLine extends React.Component {
     this.addEvent = this.addEvent.bind(this)
   }
 
+  fetchTimeline() {
+    blockstack.getFile(STORAGE_FILE).then((timeline) => {
+      const sundlyTimeline = JSON.parse(timeline)
+      console.log(sundlyTimeline)
+      if(!!sundlyTimeline) {
+        this.setState({ sundlyTimeline })
+      }
+    })
+  }
+
+  saveTimeline() {
+    const { sundlyTimeline } = this.state
+
+    return blockstack.putFile(STORAGE_FILE, JSON.stringify(sundlyTimeline))
+  }
+
   addEvent(values, actions) {
-    setTimeout(() => {
-      alert(JSON.stringify(values, null, 2));
-      actions.setSubmitting(false);
-    }, 500);
+    this.setState(prev => ({
+      ...prev,
+      sundlyTimeline: [...prev.sundlyTimeline, values]
+    }), () => this.saveTimeline().then(() =>
+      actions.setSubmitting(false)
+    ))
+  }
+
+  componentDidMount() {
+    this.fetchTimeline()
   }
 
   render() {

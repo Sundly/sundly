@@ -12,11 +12,16 @@ import { Formik, Field, FieldArray, Form } from 'formik';
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import InputAdornment from '@material-ui/core/InputAdornment';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 import AddIcon from "@material-ui/icons/Add";
 import HeartIcon from "@material-ui/icons/FavoriteBorder";
 import WeightIcon from "@material-ui/icons/FitnessCenter";
 import HeightIcon from "@material-ui/icons/Straighten";
 import TempIcon from "@material-ui/icons/Whatshot";
+import DateIcon from "@material-ui/icons/DateRange";
 
 const blockstack = require('blockstack');
 
@@ -109,29 +114,27 @@ class TimeLine extends React.Component {
               Timeline
             </Paper>
           </Grid>
+
           <Grid item xs={12}>
             <Paper className={classes.paper}>
               <Formik
                 initialValues={{
-                  datetime: (new Date(Date.now())).toISOString()
+                  datetime: (new Date(Date.now())).toISOString().substr(0,10)
                 }}
                 onSubmit={this.addEvent}
               >
                   {({ isSubmitting }) => (
                     <Form>
+                      <DateIcon />
                       <Field name="datetime" >
                         {({ field /* _form */ }) => (
                           <TextField
                             {...field}
                             className={classNames(classes.margin, classes.textField)}
-                            label="datetime"
-                            type="datetime-local"
+                            label="Date & Time"
+                            type="date"
                             InputLabelProps={{
-                              startAdornment: (
-                                <InputAdornment position="start">
-                                  <WeightIcon />
-                                </InputAdornment>
-                              )
+                              shrink: true,
                             }}
                           />
                         )}
@@ -221,6 +224,67 @@ class TimeLine extends React.Component {
               </Formik>
             </Paper>
           </Grid>
+
+          {this.state.sundlyTimeline && this.state.sundlyTimeline.length > 0 ? (
+            this.state.sundlyTimeline.map((event, index) => (
+              <Grid item xs={12}>
+                <Paper className={classes.paper}>
+                  <List dense={true}>
+                    {event.datetime && (
+                      <ListItem>
+                        <ListItemIcon>
+                          <DateIcon />
+                        </ListItemIcon>
+                        <ListItemText>
+                          {event.datetime}
+                        </ListItemText>
+                      </ListItem>
+                    )}
+                    {event.weight && (
+                      <ListItem>
+                        <ListItemIcon>
+                          <WeightIcon />
+                        </ListItemIcon>
+                        <ListItemText secondary="Kgs">
+                          {event.weight}
+                        </ListItemText>
+                      </ListItem>
+                    )}
+                    {event.height && (
+                      <ListItem>
+                        <ListItemIcon>
+                          <HeightIcon />
+                        </ListItemIcon>
+                        <ListItemText secondary="Mts">
+                          {event.height}
+                        </ListItemText>
+                      </ListItem>
+                    )}
+                    {event.temperature && (
+                      <ListItem>
+                        <ListItemIcon>
+                          <TempIcon />
+                        </ListItemIcon>
+                        <ListItemText secondary="C">
+                          {event.temperature}
+                        </ListItemText>
+                      </ListItem>
+                    )}
+                    {event.heart_rate && (
+                      <ListItem>
+                        <ListItemIcon>
+                          <HeartIcon />
+                        </ListItemIcon>
+                        <ListItemText secondary="BPM">
+                          {event.heart_rate}
+                        </ListItemText>
+                      </ListItem>
+                    )}
+                  </List>
+                </Paper>
+              </Grid>
+            ))
+          ) : ''}
         </Grid>
       </div>
     );

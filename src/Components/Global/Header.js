@@ -24,6 +24,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ContactsIcon from "@material-ui/icons/Contacts";
 import TimelineIcon from "@material-ui/icons/Timeline";
 import LogoutIcon from "@material-ui/icons/ExitToApp";
+import SettingsIcon from "@material-ui/icons/Settings";
 
 const drawerWidth = 240;
 
@@ -159,6 +160,14 @@ class Header extends Component {
           </ListItemIcon>
           <Link to="/contacts">
             <ListItemText primary="Contacts" />
+          </Link>
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <SettingsIcon />
+          </ListItemIcon>
+          <Link to="/settings">
+            <ListItemText primary="Settings" />
           </Link>
         </ListItem>
         <ListItem button>

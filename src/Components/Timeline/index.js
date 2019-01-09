@@ -77,7 +77,6 @@ class TimeLine extends React.Component {
   fetchTimeline() {
     blockstack.getFile(STORAGE_FILE).then((timeline) => {
       const sundlyTimeline = JSON.parse(timeline)
-      console.log(sundlyTimeline)
       if(!!sundlyTimeline) {
         this.setState({ sundlyTimeline })
       }

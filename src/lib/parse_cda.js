@@ -2,32 +2,48 @@ const xml2js = require('fast-xml-parser');
 const jp = require('jsonpath');
 
 module.exports = (data) => {
-  var result = xml2js.parse(data, {
+  const result = xml2js.parse(data, {
     ignoreAttributes: false,
     textNodeName : "_text",
     attributeNamePrefix : "__",
   });
 
-  const patient = jp.query(result, '$.ClinicalDocument.recordTarget.patientRole..patient')[0]
+  const profile = getProfile(result)
+  const timeline = getTimeline(result)
 
+  console.log({ profile, timeline })
+  return { profile, timeline }
+}
+
+function getProfile(result) {
+  const patient = jp.query(result, '$.ClinicalDocument.recordTarget.patientRole..patient')[0]
   const name = jp.query(patient, 'name._text')[0]
-  const gender = jp.query(patient, 'administrativeGenderCode.__code')[0]
+  const firstName = name.split(' ')[0]
+  const lastName = name.split(' ')[1] || ''
+  const sex = jp.query(patient, 'administrativeGenderCode.__code')[0]
   const dob = jp.query(patient, 'birthTime.__value')[0]
 
-  var exp = { name, gender, dob, observations: [] }
+  return { firstName, lastName, sex, dob }
+}
 
+function getTimeline(result) {
   const entries = jp.query(result, '$.ClinicalDocument.entry')[0]
   const vitalSigns = jp.query(entries, '$[?(@.organizer.code.__code=="46680005")]')
   const observations = jp.query(vitalSigns, '$..observation')
+  const keys = {
+    'Height': 'height',
+    'Body weight Measured': 'weight',
+    'Heart rate': 'heart_rate',
+    'Body Temperature': 'temperature'
+  }
 
-  observations.forEach((observation) => {
-    exp.observations.push({
-      effectiveTime: jp.query(observation, '$.effectiveTime.low.__value')[0],
-      displayName: jp.query(observation, '$.code.__displayName')[0],
-      value: jp.query(observation, '$.value.__value')[0],
-      unit: jp.query(observation, '$.value.__unit')[0],
-    })
-  });
+  return observations.map((observation) => {
+    const datetime = jp.query(observation, '$.effectiveTime.low.__value')[0]
+    const name = jp.query(observation, '$.code.__displayName')[0]
+    const value = jp.query(observation, '$.value.__value')[0]
+    // ToDo: Convert value scale based on units
+    // const unit = jp.query(observation, '$.value.__unit')[0]
 
-  return exp;
+    return { datetime, [keys[name]]: value}
+  })
 }

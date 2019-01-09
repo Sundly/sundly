@@ -50,21 +50,30 @@ class Settings extends React.Component {
     fileReader.readAsText(file)
   }
 
-  importProfile(result) {
-    if(!!result && !!result.name) {
+  importProfile(profile) {
+    if(!!profile && !!profile.firstName) {
+      return blockstack.putFile(PROFILE_FILE, JSON.stringify(profile))
     }
   }
 
-  importTimeline(result) {
-    if(!!result && !!result.observations && !!result.observations.length) {
+  importTimeline(timeline) {
+    if(!!timeline && !!timeline.length) {
+      return blockstack.getFile(TIMELINE_FILE).then((json) => {
+        const currentTimeline = JSON.parse(json)
+        if(!!currentTimeline && currentTimeline.length >= 0) {
+          return blockstack.putFile(TIMELINE_FILE, JSON.stringify(currentTimeline.concat(timeline)))
+        } else {
+          return blockstack.putFile(TIMELINE_FILE, JSON.stringify(timeline))
+        }
+      })
     }
   }
 
   parseCDA(content) {
-    const result = ParseCDA(content)
+    const { profile, timeline } = ParseCDA(content)
 
-    this.importProfile(result)
-    this.importTimeline(result)
+    this.importProfile(profile)
+    this.importTimeline(timeline)
   }
 
   render() {

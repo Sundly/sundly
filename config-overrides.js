@@ -1,19 +1,5 @@
-const path = require('path');
-const { paths } = require('react-app-rewired');
-
 module.exports = {
   webpack: function (config, env) {
-    if(env === 'production') {
-      config.module.rules[1].oneOf[1].include = [
-        paths.appSrc,
-        path.resolve(paths.appNodeModules, 'bitcoinjs-lib'),
-        path.resolve(paths.appNodeModules, 'tiny-secp256k1'),
-        path.resolve(paths.appNodeModules, 'jsontokens'),
-        path.resolve(paths.appNodeModules, 'bip32'),
-        path.resolve(paths.appNodeModules, 'base64url'),
-        path.resolve(paths.appNodeModules, 'typeforce')
-      ];
-    }
     return config;
   },
   jest: function (config) {

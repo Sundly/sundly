@@ -243,7 +243,7 @@ class TimeLine extends React.Component {
                         <ListItemIcon>
                           <WeightIcon />
                         </ListItemIcon>
-                        <ListItemText secondary="Kgs">
+                        <ListItemText secondary="KG">
                           {event.weight}
                         </ListItemText>
                       </ListItem>
@@ -253,7 +253,7 @@ class TimeLine extends React.Component {
                         <ListItemIcon>
                           <HeightIcon />
                         </ListItemIcon>
-                        <ListItemText secondary="Mts">
+                        <ListItemText secondary="M">
                           {event.height}
                         </ListItemText>
                       </ListItem>
@@ -263,7 +263,7 @@ class TimeLine extends React.Component {
                         <ListItemIcon>
                           <TempIcon />
                         </ListItemIcon>
-                        <ListItemText secondary="C">
+                        <ListItemText secondary="&deg;C">
                           {event.temperature}
                         </ListItemText>
                       </ListItem>

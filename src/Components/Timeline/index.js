@@ -1,9 +1,6 @@
-// Dependencies
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-
-// Styles
 import { withStyles } from "@material-ui/core/styles";
 import classNames from 'classnames';
 import Grid from "@material-ui/core/Grid";
@@ -22,6 +19,8 @@ import WeightIcon from "@material-ui/icons/FitnessCenter";
 import HeightIcon from "@material-ui/icons/Straighten";
 import TempIcon from "@material-ui/icons/Whatshot";
 import DateIcon from "@material-ui/icons/DateRange";
+
+import moment from 'moment';
 
 const blockstack = require('blockstack');
 
@@ -235,7 +234,7 @@ class TimeLine extends React.Component {
                           <DateIcon />
                         </ListItemIcon>
                         <ListItemText>
-                          {event.datetime}
+                          {moment(event.datetime).format('YYYY-MM-DD - HH:mm:ss')}
                         </ListItemText>
                       </ListItem>
                     )}

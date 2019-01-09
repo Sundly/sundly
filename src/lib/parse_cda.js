@@ -40,7 +40,8 @@ function getTimeline(result) {
   }
 
   return observations.map((observation) => {
-    const datetime = jp.query(observation, '$.effectiveTime.low.__value')[0]
+    const effectiveTime = jp.query(observation, '$.effectiveTime.low.__value')[0]
+    const datetime = moment(effectiveTime, 'YYYYMMDDTHHmmss-Z').format()
     const name = jp.query(observation, '$.code.__displayName')[0]
     const value = jp.query(observation, '$.value.__value')[0]
     // ToDo: Convert value scale based on units

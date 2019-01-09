@@ -154,6 +154,7 @@ class Header extends Component {
             <ListItemText primary="Timeline" />
           </Link>
         </ListItem>
+        {/**}
         <ListItem button>
           <ListItemIcon>
             <ContactsIcon />
@@ -162,6 +163,7 @@ class Header extends Component {
             <ListItemText primary="Contacts" />
           </Link>
         </ListItem>
+        {**/}
         <ListItem button>
           <ListItemIcon>
             <SettingsIcon />

@@ -1,10 +1,7 @@
-// Dependencies
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
-
-// Styles
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
@@ -22,12 +19,13 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 
-//Image
+import moment from 'moment';
 import qrGoolge from './qrcode.45596517.png';
 
 const blockstack = require('blockstack');
 
 const STORAGE_FILE = 'profile.json'
+
 
 const styles = theme => ({
   form: {
@@ -210,7 +208,7 @@ class Profile extends React.Component {
                   id="dob"
                   name="dob"
                   autoComplete="dob"
-                  value={this.state.sundlyProfile.dob}
+                  value={moment(this.state.sundlyProfile.dob).format('YYYY-MM-DD')}
                   onChange={this.handleChange}
                   margin="normal"
                 />

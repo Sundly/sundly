@@ -1,5 +1,6 @@
 const xml2js = require('fast-xml-parser');
 const jp = require('jsonpath');
+const moment = require('moment');
 
 module.exports = (data) => {
   const result = xml2js.parse(data, {
@@ -20,8 +21,9 @@ function getProfile(result) {
   const name = jp.query(patient, 'name._text')[0]
   const firstName = name.split(' ')[0]
   const lastName = name.split(' ')[1] || ''
-  const sex = jp.query(patient, 'administrativeGenderCode.__code')[0]
-  const dob = jp.query(patient, 'birthTime.__value')[0]
+  const sex = jp.query(patient, 'administrativeGenderCode.__code')[0].toLowerCase()
+  const birthTime = jp.query(patient, 'birthTime.__value')[0]
+  const dob = moment(birthTime, 'YYYYMMDD').format()
 
   return { firstName, lastName, sex, dob }
 }

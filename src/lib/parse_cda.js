@@ -3,7 +3,7 @@ const jp = require('jsonpath');
 const moment = require('moment');
 const _ = require('lodash');
 
-module.exports = (data) => {
+export default (data) => {
   const result = xml2js.parse(data, {
     ignoreAttributes: false,
     textNodeName : "_text",

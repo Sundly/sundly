@@ -9,6 +9,9 @@
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-app-rewired eject"
   },
+  "engines": {
+    "node": ">=8.10.0"
+  },
   "devDependencies": {
     "express": "^4.15.2",
     "opn": "^4.0.2",
@@ -26,6 +29,12 @@
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "1.0.17"
-  }
+    "react-scripts": "2.0.3"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

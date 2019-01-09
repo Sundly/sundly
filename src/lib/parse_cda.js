@@ -1,6 +1,7 @@
 const xml2js = require('fast-xml-parser');
 const jp = require('jsonpath');
 const moment = require('moment');
+const _ = require('lodash');
 
 module.exports = (data) => {
   const result = xml2js.parse(data, {
@@ -12,7 +13,6 @@ module.exports = (data) => {
   const profile = getProfile(result)
   const timeline = getTimeline(result)
 
-  console.log({ profile, timeline })
   return { profile, timeline }
 }
 
@@ -38,8 +38,7 @@ function getTimeline(result) {
     'Heart rate': 'heart_rate',
     'Body Temperature': 'temperature'
   }
-
-  return observations.map((observation) => {
+  const obTimeline = observations.map((observation) => {
     const effectiveTime = jp.query(observation, '$.effectiveTime.low.__value')[0]
     const datetime = moment(effectiveTime, 'YYYYMMDDTHHmmss-Z').format()
     const name = jp.query(observation, '$.code.__displayName')[0]
@@ -49,4 +48,7 @@ function getTimeline(result) {
 
     return { datetime, [keys[name]]: value}
   })
+  const timeline = _.map(_.groupBy(obTimeline, 'datetime'), ob => _.reduce(ob, (acc, e) => _.assign(acc, e), {}))
+
+  return timeline
 }

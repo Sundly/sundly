@@ -1,6 +1,7 @@
 // Dependencies
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from 'react-router-dom';
 
 // Styles
 import { withStyles } from "@material-ui/core/styles";
@@ -78,25 +79,27 @@ class Contacts extends React.Component {
           <Grid item xs={12}>
             <List>
               {this.state.contacts.map(contact => (
-                <ListItem
-                  key={contact.id}
-                  dense
-                  button
-                  className={classes.listItem}
-                >
-                  <Avatar
-                    src={`https://api.adorable.io/avatars/285/${contact.name}.png`}
-                  />
-                  <ListItemText
-                    primary={contact.name}
-                    secondary={contact.specialty}
-                  />
-                  <ListItemSecondaryAction>
-                    <IconButton aria-label="Comments">
-                      <ShareIcon />
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                </ListItem>
+                <Link to={`/user/${contact.id}`}>
+                  <ListItem
+                    key={contact.id}
+                    dense
+                    button
+                    className={classes.listItem}
+                  >
+                    <Avatar
+                      src={`https://api.adorable.io/avatars/285/${contact.name}.png`}
+                    />
+                    <ListItemText
+                      primary={contact.name}
+                      secondary={contact.specialty}
+                    />
+                    <ListItemSecondaryAction>
+                      <IconButton aria-label="Comments">
+                        <ShareIcon />
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                </Link>
               ))}
             </List>
             <Button variant="fab" className={classes.fab} color={`primary`}>

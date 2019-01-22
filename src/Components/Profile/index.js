@@ -88,26 +88,47 @@ class Profile extends React.Component {
     super(props)
 
     this.state = {
-      user: blockstack.loadUserData(),
+      user: {
+        profile: {}
+      },
       sundlyProfile: {
         firstName: '',
         lastName: '',
         sex: '',
         dob: '',
       },
+      userNotFound: false,
       open: false,
     }
 
     this.handleChange = this.handleChange.bind(this)
   }
 
-  fetchProfile() {
-    blockstack.getFile(STORAGE_FILE).then((profileText) => {
-      const sundlyProfile = JSON.parse(profileText)
-      if(!!sundlyProfile && !!sundlyProfile.firstName) {
-        this.setState({ sundlyProfile })
-      }
-    })
+  fetchBlockstackProfile(username) {
+    if(username) {
+      return blockstack.lookupProfile(username)
+        .then((profile) => {
+          return this.setState({ user: { profile } })
+        })
+        .catch((error) => {
+          console.log(`could not resolve '${username}' profile`)
+          console.log(error)
+        })
+    } else {
+      return this.setState({ user: blockstack.loadUserData() })
+    }
+  }
+
+  fetchProfile(username) {
+    const prefix = username ? `shared/${username}/` : '';
+
+    blockstack.getFile(`${prefix}${STORAGE_FILE}`)
+      .then((profileText) => {
+        const sundlyProfile = JSON.parse(profileText)
+        if(!!sundlyProfile && !!sundlyProfile.firstName) {
+          this.setState({ sundlyProfile })
+        }
+      })
   }
 
   saveProfile() {
@@ -136,7 +157,10 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchProfile()
+    const { match: { params: { username } } } = this.props
+
+    this.fetchBlockstackProfile(username)
+    this.fetchProfile(username)
   }
 
   render() {

@@ -124,13 +124,16 @@ class Profile extends React.Component {
 
     blockstack.getFile(`${prefix}${STORAGE_FILE}`)
       .then((profileText) => {
-        console.log(profileText)
+        if(!profileText) {
+          throw Error(profileText);
+        }
         const sundlyProfile = JSON.parse(profileText)
         if(!!sundlyProfile && !!sundlyProfile.firstName) {
           this.setState({ sundlyProfile })
         }
       })
       .catch((error) => {
+        this.setState({ userNotFound: true })
         console.log(`error getting Sundly profile for ${username}`)
         console.log(error)
       })
@@ -186,98 +189,108 @@ class Profile extends React.Component {
             </Typography>
           </Paper>
         </Grid>
-        <Grid item xs={12}>
-          <Paper className={classes.paper}>
-            <Typography variant="title" gutterBottom>
-              Clinical Profile:
-            </Typography>
-            <form className={classes.form} noValidate autoComplete="off">
-              <FormControl className={classes.formControl}>
-                <InputLabel shrink htmlFor="firstName">First Name</InputLabel>
-                <TextField
-                  required
-                  id="firstName"
-                  name="firstName"
-                  autoComplete="fname"
-                  value={this.state.sundlyProfile.firstName}
-                  onChange={this.handleChange}
-                  margin="normal"
-                />
-              </FormControl>
-              <FormControl className={classes.formControl}>
-                <InputLabel shrink htmlFor="lastName">Last Name</InputLabel>
-                <TextField
-                  required
-                  id="lastName"
-                  name="lastName"
-                  autoComplete="lname"
-                  value={this.state.sundlyProfile.lastName}
-                  onChange={this.handleChange}
-                  margin="normal"
-                />
-              </FormControl>
-              <FormControl className={classes.formControl}>
-                <InputLabel shrink htmlFor="sex">
-                  Biological Sex
-                </InputLabel>
-                <Select
-                  value={this.state.sundlyProfile.sex}
-                  onChange={this.handleChange}
-                  input={<Input name="sex" id="sex" />}
-                >
-                  <MenuItem value={'m'}>Male</MenuItem>
-                  <MenuItem value={'f'}>Female</MenuItem>
-                </Select>
-              </FormControl>
-              <FormControl className={classes.formControl}>
-                <InputLabel shrink htmlFor="dob">Date of Birth</InputLabel>
-                <TextField
-                  required
-                  type="date"
-                  id="dob"
-                  name="dob"
-                  autoComplete="dob"
-                  value={moment(this.state.sundlyProfile.dob).format('YYYY-MM-DD')}
-                  onChange={this.handleChange}
-                  margin="normal"
-                />
-              </FormControl>
-            </form>
-          </Paper>
-          <Grid container spacing={24} style={{ marginLeft: 20, marginTop: 10}}>
-            <Grid item xs={4}>
-              <Button variant="fab" color={`primary`}>
-                <Link to="/timeline">
-                  <TimelineIcon />
-                </Link>
-              </Button>
-            </Grid>
-            <Grid item xs={4}>
-              <Button variant="fab" color={`primary`}>
-                <Link to="/contacts">
-                  <Share />
-                </Link>
-              </Button>
-            </Grid>
-            <Grid item xs={4}>
-              <Button variant="fab" color={`primary`}>
-                <BorderBottom onClick={this.handleOpen} />
-                <Modal
-                  aria-labelledby="simple-modal-title"
-                  aria-describedby="simple-modal-description"
-                  open={this.state.open}
-                  onClose={this.handleClose}
-                >
-                  <div style={getModalStyle()}>
-                    <img src={qrGoolge} alt="google"/>
-                  </div>
-                </Modal>
-              </Button>
+        {this.state.userNotFound ? (
+          <Grid item xs={12}>
+            <Paper className={classes.paper}>
+              <Typography variant="headline" gutterBottom>
+                User {this.props.match.params.username} hasn't shared their records with you
+              </Typography>
+            </Paper>
+          </Grid>
+        ) : (
+          <Grid item xs={12}>
+            <Paper className={classes.paper}>
+              <Typography variant="title" gutterBottom>
+                Clinical Profile:
+              </Typography>
+              <form className={classes.form} noValidate autoComplete="off">
+                <FormControl className={classes.formControl}>
+                  <InputLabel shrink htmlFor="firstName">First Name</InputLabel>
+                  <TextField
+                    required
+                    id="firstName"
+                    name="firstName"
+                    autoComplete="fname"
+                    value={this.state.sundlyProfile.firstName}
+                    onChange={this.handleChange}
+                    margin="normal"
+                  />
+                </FormControl>
+                <FormControl className={classes.formControl}>
+                  <InputLabel shrink htmlFor="lastName">Last Name</InputLabel>
+                  <TextField
+                    required
+                    id="lastName"
+                    name="lastName"
+                    autoComplete="lname"
+                    value={this.state.sundlyProfile.lastName}
+                    onChange={this.handleChange}
+                    margin="normal"
+                  />
+                </FormControl>
+                <FormControl className={classes.formControl}>
+                  <InputLabel shrink htmlFor="sex">
+                    Biological Sex
+                  </InputLabel>
+                  <Select
+                    value={this.state.sundlyProfile.sex}
+                    onChange={this.handleChange}
+                    input={<Input name="sex" id="sex" />}
+                  >
+                    <MenuItem value={'m'}>Male</MenuItem>
+                    <MenuItem value={'f'}>Female</MenuItem>
+                  </Select>
+                </FormControl>
+                <FormControl className={classes.formControl}>
+                  <InputLabel shrink htmlFor="dob">Date of Birth</InputLabel>
+                  <TextField
+                    required
+                    type="date"
+                    id="dob"
+                    name="dob"
+                    autoComplete="dob"
+                    value={moment(this.state.sundlyProfile.dob).format('YYYY-MM-DD')}
+                    onChange={this.handleChange}
+                    margin="normal"
+                  />
+                </FormControl>
+              </form>
+            </Paper>
+            <Grid container spacing={24} style={{ marginLeft: 20, marginTop: 10}}>
+              <Grid item xs={4}>
+                <Button variant="fab" color={`primary`}>
+                  <Link to="/timeline">
+                    <TimelineIcon />
+                  </Link>
+                </Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Button variant="fab" color={`primary`}>
+                  <Link to="/contacts">
+                    <Share />
+                  </Link>
+                </Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Button variant="fab" color={`primary`}>
+                  <BorderBottom onClick={this.handleOpen} />
+                  <Modal
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                    open={this.state.open}
+                    onClose={this.handleClose}
+                  >
+                    <div style={getModalStyle()}>
+                      <img src={qrGoolge} alt="google"/>
+                    </div>
+                  </Modal>
+                </Button>
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
+        )}
       </Grid>
-    );
+    )
   }
 }
 

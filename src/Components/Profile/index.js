@@ -111,7 +111,7 @@ class Profile extends React.Component {
           return this.setState({ user: { profile } })
         })
         .catch((error) => {
-          console.log(`could not resolve '${username}' profile`)
+          console.log(`could not resolve blockstack profile for '${username}'`)
           console.log(error)
         })
     } else {
@@ -124,10 +124,15 @@ class Profile extends React.Component {
 
     blockstack.getFile(`${prefix}${STORAGE_FILE}`)
       .then((profileText) => {
+        console.log(profileText)
         const sundlyProfile = JSON.parse(profileText)
         if(!!sundlyProfile && !!sundlyProfile.firstName) {
           this.setState({ sundlyProfile })
         }
+      })
+      .catch((error) => {
+        console.log(`error getting Sundly profile for ${username}`)
+        console.log(error)
       })
   }
 

@@ -12,12 +12,12 @@ In the past many have approached this problem from a centralized point of view. 
 
 Today's technologies allow to envision a future where a decentralized network of personal health records is possible, in a private & secure way, where the data is owned by the user himself.
 
-## Public Roadmap
+## References
 
-https://trello.com/b/vH8XPCVb/sundly
-
-## References / Ideas
+[Decentralized EHR Whitepaper (draft)](https://docs.google.com/document/d/e/2PACX-1vS9LuHoK9IrrCNACKub55F5NmvVbKVRpM-x8Y9xRKILlFFIdmSuwVUq9O8S6ymFoMA6NCOL6PjDnVh-/pub)
 
 https://twitter.com/benoror/status/991711945861488640?s=19
 
-> Decentralized EHR Whitepaper (draft)
+## Public Roadmap
+
+https://trello.com/b/vH8XPCVb/sundly

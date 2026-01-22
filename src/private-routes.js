@@ -13,9 +13,11 @@ const PrivateRoutes = () =>
 <App>
     <Switch>
         <Route exact path ="/" component={Profile}/>
-        <Route exact path ="/contacts" component={Contacts}/>
-        <Route exact path ="/timeline" component={TimeLine}/>
-        <Route exact path ="/settings" component={Settings}/>
+        <Route path ="/contacts" component={Contacts}/>
+        <Route path ="/timeline" component={TimeLine}/>
+        <Route path ="/settings" component={Settings}/>
+        <Route exact path ="/user/:username" component={Profile}/>
+        <Route exact path ="/user/:username/timeline" component={TimeLine}/>
     </Switch>
 </App>
 

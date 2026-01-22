@@ -138,48 +138,46 @@ class Header extends Component {
 
     const mainList = (
       <List component="nav">
-        <ListItem button>
-          <ListItemIcon>
-            <AccountCircle />
-          </ListItemIcon>
-          <Link to="/">
-            <ListItemText primary="Profile" />
-          </Link>
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <TimelineIcon />
-          </ListItemIcon>
-          <Link to="/timeline">
-            <ListItemText primary="Timeline" />
-          </Link>
-        </ListItem>
-        {/**}
-        <ListItem button>
-          <ListItemIcon>
-            <ContactsIcon />
-          </ListItemIcon>
-          <Link to="/contacts">
-            <ListItemText primary="Contacts" />
-          </Link>
-        </ListItem>
-        {**/}
-        <ListItem button>
-          <ListItemIcon>
-            <SettingsIcon />
-          </ListItemIcon>
-          <Link to="/settings">
-            <ListItemText primary="Settings" />
-          </Link>
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <LogoutIcon />
-          </ListItemIcon>
-          <Link to="/logout">
-            <ListItemText primary="Logout" />
-          </Link>
-        </ListItem>
+        <Link to="/">
+          <ListItem button>
+            <ListItemIcon>
+              <AccountCircle />
+            </ListItemIcon>
+              <ListItemText primary="Profile" />
+          </ListItem>
+        </Link>
+        <Link to="/timeline">
+          <ListItem button>
+            <ListItemIcon>
+              <TimelineIcon />
+            </ListItemIcon>
+              <ListItemText primary="Timeline" />
+          </ListItem>
+        </Link>
+        <Link to="/contacts">
+          <ListItem button>
+            <ListItemIcon>
+              <ContactsIcon />
+            </ListItemIcon>
+              <ListItemText primary="Contacts" />
+          </ListItem>
+        </Link>
+        <Link to="/settings">
+          <ListItem button>
+            <ListItemIcon>
+              <SettingsIcon />
+            </ListItemIcon>
+              <ListItemText primary="Settings" />
+          </ListItem>
+        </Link>
+        <Link to="/logout">
+          <ListItem button>
+            <ListItemIcon>
+              <LogoutIcon />
+            </ListItemIcon>
+              <ListItemText primary="Logout" />
+          </ListItem>
+        </Link>
       </List>
     );
 
